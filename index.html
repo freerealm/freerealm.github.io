@@ -17,9 +17,7 @@
     .nav a:hover { color: #66c0f4; }
     .main { padding: 20px; margin-top: 90px; width: 100%; max-width: 1100px; }
 
-    .search-box {
-      margin-bottom: 20px;
-    }
+    .search-box { margin-bottom: 20px; }
     .search-box input {
       padding: 8px 12px;
       font-size: 14px;
@@ -38,12 +36,13 @@
     .section-title { font-size: 20px; margin-bottom: 15px; color: #fff; border-bottom: 1px solid #66c0f4; padding-bottom: 5px; }
     .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
     .game-card { background: #2a475e; border-radius: 5px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; text-decoration: none; }
-    .game-image { width: 100%; aspect-ratio: 16/9; background: #1b2838; display: flex; align-items: center; justify-content: center; color: #66c0f4; font-size: 12px; }
-    .game-image img { width: 100%; height: 100%; object-fit: cover; }
+    .game-image { width: 100%; aspect-ratio: 16/9; background: #1b2838; display: flex; align-items: center; justify-content: center; color: #66c0f4; font-size: 12px; position: relative; overflow: hidden; }
+    .game-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .game-info { padding: 10px; }
     .game-title { font-weight: bold; margin-bottom: 5px; color: #fff; }
     .github-badge { background: #6cc644; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 12px; display: inline-block; margin-top: 5px; margin-right: 5px; }
     .error-badge { background: #c0392b; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 12px; display: inline-block; margin-top: 5px; }
+    .killer-badge { background: #e74c3c; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 12px; display: inline-block; margin-top: 5px; margin-right: 5px; }
 
     footer { margin-top: auto; width: 100%; text-align: center; padding: 40px 0 20px 0; }
     .footer-text { color: #8f98a0; font-size: 14px; }
@@ -85,6 +84,7 @@
           <div class="github-badge">Бесплатно</div>
         </div>
       </a>
+
       <a href="gorebox.html" class="game-card">
         <div class="game-image">
           <img src="https://raw.githubusercontent.com/freerealm/FreeRealm/main/gorebox.png"
@@ -96,6 +96,7 @@
           <div class="github-badge">Бесплатно</div>
         </div>
       </a>
+
       <a href="geometrydash.html" class="game-card">
         <div class="game-image">
           <img src="https://raw.githubusercontent.com/freerealm/FreeRealm/main/geometrydash.png"
@@ -106,6 +107,35 @@
           <div class="game-title">Geometry Dash</div>
           <div class="github-badge">Бесплатно</div>
           <div class="error-badge">С ошибкой</div>
+        </div>
+      </a>
+
+      <a href="underyellow.html" class="game-card">
+        <div class="game-image">
+          <img
+            src="https://raw.githubusercontent.com/freerealm/freerealm/main/underyellow.png"
+            alt="Undertale Yellow"
+            onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<div style=\'position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#f1c40f;\'>Undertale Yellow</div>');"
+          >
+        </div>
+        <div class="game-info">
+          <div class="game-title" style="color: #fff;">Undertale Yellow</div>
+          <div class="github-badge">Бесплатно</div>
+          <div class="github-badge" style="background: #f1c40f; color: #000;">Justice</div>
+        </div>
+      </a>
+
+      <a href="btt.html" class="game-card">
+        <div class="game-image">
+          <img src="https://raw.githubusercontent.com/freerealm/freerealm/main/btt.png"
+               alt="Bad Time Trio"
+               onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<div style=\'position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#f1c40f;\'>Bad Time Trio</div>');"
+          >
+        </div>
+        <div class="game-info">
+          <div class="game-title" style="color: #fff;">Bad Time Trio</div>
+          <div class="github-badge">Бесплатно</div>
+          <div class="killer-badge">Killer</div>
         </div>
       </a>
     </div>
