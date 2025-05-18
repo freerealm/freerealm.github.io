@@ -6,48 +6,12 @@
   <title>FreeRealm</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-    body { background: #1b2838; color: #c6d4df; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; }
+    body { background: #1b2838; color: #c6d4df; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; padding-left: 0px; }
     .header { background: #171a21; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.5); width: 100%; position: fixed; top: 0; left: 0; right: 0; z-index: 10; }
-    .logo-container { display: flex; flex-direction: column; max-width: 100%; position: relative; }
+    .logo-container { display: flex; flex-direction: column; max-width: 100%; }
     .logo { font-size: 24px; font-weight: bold; color: #fff; text-decoration: none; display: flex; align-items: center; }
     .logo span { color: #66c0f4; }
-    .current-url {
-      font-size: 12px;
-      color: #8f98a0;
-      word-break: break-word;
-      max-width: 100%;
-      margin-top: 2px;
-      cursor: pointer;
-      padding: 2px 4px;
-      border: 1px solid transparent; /* резерв места под рамку */
-      transition: border-color 0.2s, background-color 0.2s, color 0.2s;
-    }
-    .current-url:hover {
-      border-color: #66c0f4;
-      border-radius: 3px;
-      background-color: rgba(102,192,244,0.1);
-      color: #66c0f4;
-    }
-    .copy-notification {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      margin-top: 4px;
-      background: #009FE5;
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 3px;
-      font-size: 12px;
-      opacity: 0;
-      transform: translateY(-5px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none;
-    }
-    .copy-notification.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .current-url { font-size: 12px; color: #8f98a0; margin-top: 2px; word-break: break-word; max-width: 100%; }
     .nav { display: flex; gap: 20px; justify-content: flex-end; width: 100%; }
     .nav a { color: #c6d4df; text-decoration: none; font-size: 14px; margin-top: 5px; }
     .nav a:hover { color: #66c0f4; }
@@ -79,6 +43,7 @@
     .github-badge { background: #6cc644; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 12px; display: inline-block; margin-top: 5px; margin-right: 5px; }
     .error-badge { background: #c0392b; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 12px; display: inline-block; margin-top: 5px; }
     .killer-badge { background: #e74c3c; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 12px; display: inline-block; margin-top: 5px; margin-right: 5px; }
+    .steam-badge { background: #3498db; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 12px; display: inline-block; margin-top: 5px; margin-right: 5px; }
 
     footer { margin-top: auto; width: 100%; text-align: center; padding: 40px 0 20px 0; }
     .footer-text { color: #8f98a0; font-size: 14px; }
@@ -95,7 +60,6 @@
     <div class="logo-container">
       <a href="./" class="logo">Free<span>Realm</span>Hub</a>
       <div class="current-url" id="current-url"></div>
-      <div class="copy-notification" id="copy-notification">Скопировано!</div>
     </div>
     <div class="nav">
       <a href="https://www.donationalerts.com/r/morozikdurov" target="_blank">Донат</a>
@@ -149,12 +113,14 @@
 
       <a href="underyellow.html" class="game-card">
         <div class="game-image">
-          <img src="https://raw.githubusercontent.com/freerealm/freerealm/main/underyellow.png"
-               alt="Undertale Yellow"
-               onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<div style='position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#f1c40f;'>Undertale Yellow</div>');">
+          <img
+            src="https://raw.githubusercontent.com/freerealm/freerealm/main/underyellow.png"
+            alt="Undertale Yellow"
+            onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<div style=\'position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#f1c40f;\'>Undertale Yellow</div>');"
+          >
         </div>
         <div class="game-info">
-          <div class="game-title">Undertale Yellow</div>
+          <div class="game-title" style="color: #fff;">Undertale Yellow</div>
           <div class="github-badge">Бесплатно</div>
           <div class="github-badge" style="background: #f1c40f; color: #000;">Justice</div>
         </div>
@@ -164,12 +130,26 @@
         <div class="game-image">
           <img src="https://raw.githubusercontent.com/freerealm/freerealm/main/btt.png"
                alt="Bad Time Trio"
-               onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<div style='position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#f1c40f;'>Bad Time Trio</div>');">
+               onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<div style=\'position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#f1c40f;\'>Bad Time Trio</div>');"
+          >
         </div>
         <div class="game-info">
-          <div class="game-title">Bad Time Trio</div>
+          <div class="game-title" style="color: #fff;">Bad Time Trio</div>
           <div class="github-badge">Бесплатно</div>
           <div class="killer-badge">Killer</div>
+        </div>
+      </a>
+
+      <a href="beatblock.html" class="game-card">
+        <div class="game-image">
+          <img src="https://raw.githubusercontent.com/freerealm/freerealm/main/beatblock.png"
+               alt="Beatblock"
+               onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<div style=\'position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#66c0f4;\'>Beatblock</div>');">
+        </div>
+        <div class="game-info">
+          <div class="game-title">Beatblock</div>
+          <div class="github-badge">Бесплатно</div>
+          <div class="steam-badge">Steam</div>
         </div>
       </a>
     </div>
@@ -180,21 +160,11 @@
   </footer>
 
   <script>
-    const urlDiv = document.getElementById('current-url');
-    urlDiv.textContent = window.location.href;
-
-    const notification = document.getElementById('copy-notification');
-    urlDiv.addEventListener('click', () => {
-      navigator.clipboard.writeText(window.location.href)
-        .then(() => {
-          notification.classList.add('show');
-          setTimeout(() => notification.classList.remove('show'), 2000);
-        })
-        .catch(console.error);
-    });
+    document.getElementById('current-url').textContent = window.location.href;
 
     const input = document.getElementById('search-input');
     const cards = document.querySelectorAll('.game-card');
+
     input.addEventListener('input', () => {
       const value = input.value.toLowerCase();
       cards.forEach(card => {
