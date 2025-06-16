@@ -2,44 +2,492 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Исходники FreeRealmHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif; }
-    body { background:#1b2838; color:#c6d4df; min-height:100vh; display:flex; flex-direction:column; }
-    .header-custom { display:flex; align-items:center; justify-content:space-between; background:#171a21;
-                     padding:10px 20px; border-bottom:2px solid #66c0f4; position:fixed; top:0; width:100%; z-index:1; }
-    .back-btn { background:none; border:none; color:#c6d4df; font-size:16px; cursor:pointer; text-decoration:underline; }
-    .back-btn:hover { color:#66c0f4; }
-    .header-title { font-size:20px; font-weight:bold; color:#fff; }
-    .github-btn img { width:24px; height:24px; filter:invert(100%); }
-    .github-btn:hover img { filter:invert(60%) sepia(100%) saturate(500%) hue-rotate(180deg); }
-    .content { padding:80px 20px; text-align:center; flex:1; }
-    .content h1 { font-size:28px; color:#66c0f4; margin-bottom:20px; }
-    .content p { font-size:16px; line-height:1.6; margin-bottom:30px; }
+    :root {
+      --bg-dark: #1b2838;
+      --bg-header: #171a21;
+      --bg-card: #2a475e;
+      --text-light: #c6d4df;
+      --text-white: #fff;
+      --accent-blue: #66c0f4;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* --- Header (Main Site - For index.html) --- */
+    .header {
+      background: var(--bg-header);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px var(--shadow-color);
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      animation: fadeInDown var(--transition-speed) ease-out;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--text-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--accent-blue);
+    }
+
+    .current-url {
+      font-size: 0.75rem;
+      color: #8f98a0;
+      margin-top: 2px;
+      word-break: break-word;
+      max-width: 100%;
+    }
+
+    .nav {
+      display: flex;
+      gap: 25px;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 1rem;
+      position: relative;
+      padding: 5px 0;
+      transition: color var(--transition-speed) ease;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-blue);
+      transition: width var(--transition-speed) ease-out;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+    .nav a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* --- Custom Header for SourceCode Page (scr.html) --- */
+    .header-custom {
+      background: var(--bg-header);
+      padding: 15px 40px;
+      border-bottom: 1px solid var(--accent-blue);
+      box-shadow: 0 4px 10px var(--shadow-color);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      animation: fadeInDown var(--transition-speed) ease-out;
+      
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+    }
+
+    .header-title-page {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      letter-spacing: 0.05em;
+      flex-grow: 1;
+      text-align: center;
+      white-space: nowrap;
+      min-width: 0;
+      padding: 0 10px;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all var(--transition-speed) ease; /* Keep transition for desktop */
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .back-btn:hover {
+      color: var(--accent-blue);
+      background: rgba(102, 192, 244, 0.1);
+      transform: translateX(-5px); /* This animation */
+    }
+
+    .github-btn {
+      transition: transform var(--transition-speed) ease; /* Keep transition for desktop */
+      flex-shrink: 0;
+    }
+
+    .github-btn img {
+      width: 30px;
+      height: 30px;
+      filter: invert(100%);
+      transition: filter var(--transition-speed) ease;
+    }
+
+    .github-btn:hover {
+      transform: scale(1.1); /* This animation */
+    }
+
+    .github-btn:hover img {
+      filter: invert(70%) sepia(100%) saturate(500%) hue-rotate(180deg);
+    }
+
+    /* --- Main Content --- */
+    .content {
+      padding: 120px 20px 60px;
+      text-align: center;
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn var(--transition-speed) ease-in;
+    }
+
+    .content h1 {
+      font-size: 3rem;
+      color: var(--accent-blue);
+      margin-bottom: 25px;
+      font-weight: 700;
+      animation: slideInUp var(--transition-speed) ease-out 0.1s backwards;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      color: var(--text-light);
+      animation: fadeIn var(--transition-speed) ease-in 0.2s backwards;
+    }
+
     .btn-github {
-      background:#2a475e; color:#fff; padding:14px 24px; border-radius:6px;
-      font-size:16px; text-decoration:none; transition:background 0.3s;
+      background: var(--accent-blue);
+      color: var(--bg-dark);
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition-speed) ease;
+      box-shadow: 0 5px 15px rgba(102, 192, 244, 0.3);
+      display: inline-block;
+      animation: zoomIn var(--transition-speed) ease-out 0.3s backwards;
     }
-    .btn-github:hover { background:#66c0f4; color:#000; }
+
+    .btn-github:hover {
+      background: #87cefa;
+      color: var(--bg-dark);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(102, 192, 244, 0.4);
+    }
+
     .unpack-link {
-      margin-top:15px;
-      font-size:15px;
+      margin-top: 25px;
+      font-size: 1rem;
+      animation: fadeIn var(--transition-speed) ease-in 0.4s backwards;
     }
-    .unpack-link a {
-      color:#66c0f4;
-      text-decoration:underline;
+
+    .unpack-link button {
+      background: none;
+      border: none;
+      color: var(--accent-blue);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: color var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
     }
-    .unpack-link a:hover {
-      color:#ffffff;
+
+    .unpack-link button:hover {
+      color: var(--text-white);
+      text-decoration: none;
     }
-    footer { padding:20px 0; text-align:center; color:#8f98a0; font-size:14px; }
+
+    /* --- Instruction Box --- */
+    .instruction-box {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-blue);
+      padding: 30px;
+      margin-top: 40px;
+      border-radius: 12px;
+      text-align: left;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 10px 25px var(--shadow-color);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out, height var(--transition-speed) ease-out, padding var(--transition-speed) ease-out, margin var(--transition-speed) ease-out, border var(--transition-speed) ease-out;
+      height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 0;
+      border: none;
+    }
+
+    .instruction-box.show {
+      opacity: 1;
+      transform: translateY(0);
+      height: auto;
+      padding: 30px;
+      margin-top: 40px;
+      border: 1px solid var(--accent-blue);
+    }
+
+    .instruction-box h2 {
+      font-size: 1.8rem;
+      color: var(--accent-blue);
+      margin-bottom: 20px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(102, 192, 244, 0.3);
+      padding-bottom: 10px;
+    }
+
+    .instruction-box p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: var(--text-light);
+    }
+
+    .instruction-box ol {
+      margin-left: 25px;
+      margin-bottom: 20px;
+    }
+
+    .instruction-box li {
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    .instruction-box li:last-child {
+      margin-bottom: 0;
+    }
+
+    .instruction-box a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      transition: color var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
+    }
+
+    .instruction-box a:hover {
+      color: var(--text-white);
+      text-decoration: underline;
+    }
+
+    /* --- Footer --- */
+    footer {
+      padding: 25px 0;
+      text-align: center;
+      color: #8f98a0;
+      font-size: 0.9rem;
+      margin-top: auto;
+      width: 100%;
+      border-top: 1px solid rgba(102, 192, 244, 0.2);
+      animation: fadeIn var(--transition-speed) ease-in 0.5s backwards;
+    }
+
+    /* --- Animations --- */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* --- MOBILE RESPONSIVE ADJUSTMENTS --- */
+    @media (max-width: 768px) {
+      .header-custom {
+        padding: 10px 15px;
+        justify-content: center;
+        height: auto;
+      }
+
+      .back-btn, .github-btn {
+        width: 60px;
+        justify-content: center;
+        padding: 5px 0;
+        font-size: 0.9rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        /* --- НОВЫЕ ПРАВИЛА ДЛЯ ОТКЛЮЧЕНИЯ АНИМАЦИИ НА МОБИЛЬНЫХ --- */
+        transition: none; /* Отключаем все переходы */
+      }
+      .back-btn:hover { /* Сбрасываем эффекты наведения */
+        color: var(--text-light); /* Возвращаем стандартный цвет */
+        background: none; /* Убираем фон */
+        transform: none; /* Убираем смещение */
+      }
+
+      .github-btn {
+        right: 10px;
+        /* --- НОВЫЕ ПРАВИЛА ДЛЯ ОТКЛЮЧЕНИЯ АНИМАЦИИ НА МОБИЛЬНЫХ --- */
+        transition: none; /* Отключаем все переходы */
+      }
+      .github-btn:hover { /* Сбрасываем эффекты наведения */
+        transform: none; /* Убираем масштабирование */
+      }
+      .github-btn:hover img { /* Сбрасываем эффекты наведения для картинки */
+        filter: invert(100%); /* Возвращаем стандартный фильтр */
+      }
+
+      .back-btn {
+        left: 10px;
+      }
+      .header-title-page {
+        font-size: 1.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 140px);
+        margin: 0 auto;
+        position: static;
+        transform: none;
+      }
+
+      .content {
+        padding: 80px 15px 30px;
+      }
+      .content h1 {
+        font-size: 1.8rem;
+      }
+      .content p {
+        font-size: 0.9rem;
+      }
+      .btn-github {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+      .instruction-box {
+        padding: 15px;
+      }
+      .instruction-box h2 {
+        font-size: 1.2rem;
+      }
+      .instruction-box p, .instruction-box li {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-custom {
+        padding: 10px;
+      }
+      .back-btn, .github-btn {
+        width: 50px;
+        font-size: 0.8rem;
+      }
+      .back-btn { left: 5px; }
+      .github-btn { right: 5px; }
+      .header-title-page {
+        font-size: 1rem;
+        max-width: calc(100% - 120px);
+      }
+    }
+
+    /* Main site header responsiveness (for index.html) */
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+      }
+      .header .logo-container {
+        width: 100%;
+        text-align: center;
+      }
+      .header .logo {
+        justify-content: center;
+      }
+      .header .current-url {
+        display: none;
+      }
+      .header .nav {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+        gap: 15px;
+      }
+      .header .nav a {
+        font-size: 0.9rem;
+        padding: 5px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="header-custom">
-    <a href="index.html" class="back-btn">← Назад</a>
-    <div class="header-title">Исходники FreeRealmHub</div>
-    <a href="https://github.com/freerealm/FreeRealmSCR" target="_blank" class="github-btn" title="Наш GitHub">
+    <a href="index.html" class="back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+      </svg>
+      Назад
+    </a>
+    <div class="header-title-page">Исходники FreeRealmHub</div>
+    <a href="https://github.com/freerealm/FreeRealmSCR" target="_blank" class="github-btn" title="Наш GitHub" rel="noopener noreferrer">
       <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"/>
     </a>
   </div>
@@ -47,15 +495,54 @@
   <div class="content">
     <h1>Открытый код: Полная прозрачность</h1>
     <p>
-Наши лаунчеры и загрузчики — это чистый Python-код, который мы выкладываем на GitHub. Это значит, что вы можете лично убедиться: в них нет никаких вирусов или скрытых компонентов, а весь исходный код доступен для просмотра.
+      Наши лаунчеры и загрузчики — это чистый Python-код, который мы выкладываем на GitHub. Это значит, что вы можете лично убедиться: в них нет никаких вирусов или скрытых компонентов, а весь исходный код доступен для просмотра.
     </p>
-    <a href="https://github.com/freerealm/FreeRealmSCR" class="btn-github" target="_blank">Смотреть на GitHub</a>
+    <a href="https://github.com/freerealm/FreeRealmSCR" class="btn-github" target="_blank" rel="noopener noreferrer">Смотреть на GitHub</a>
 
     <div class="unpack-link">
-    <a href="https://pylingual.io/" target="_blank">Проверить exe</a>.
+      <button id="toggleInstructions">Проверить EXE</button>.
+    </div>
+
+    <div id="instructionBox" class="instruction-box">
+      <h2>Как проверить исполняемый файл (.exe)</h2>
+      <p>Если вы хотите самостоятельно убедиться в безопасности нашего .exe файла, следуйте этим инструкциям:</p>
+      <ol>
+        <li>Загрузите ваш .exe файл на сервис <a href="https://pyextractor.com/" target="_blank" rel="noopener noreferrer">Pyextractor Web</a>. Этот инструмент поможет вам извлечь Python-байткод (.pyc) из исполняемого файла.</li>
+        <li>После извлечения, найдите и скачайте файл <code>.pyc</code>, который соответствует названию нашей программы.</li>
+        <li>Затем загрузите этот <code>.pyc</code> файл на сайт <a href="https://pylingual.io/" target="_blank" rel="noopener noreferrer">Pylingual.io</a>. Pylingual расшифрует байткод обратно в читаемый Python-код.</li>
+        <li>Изучите полученный код, чтобы убедиться в отсутствии вредоносных компонентов.</li>
+      </ol>
+      <p>Эти шаги позволят вам провести независимую проверку и подтвердить чистоту нашего программного обеспечения.</p>
     </div>
   </div>
 
-  <footer>FreeRealmHub 2025</footer>
+  <footer>
+    <div class="footer-text">&copy; FreeRealmHub 2025. Все права защищены.</div>
+  </footer>
+
+  <script>
+    document.getElementById('toggleInstructions').addEventListener('click', function() {
+      const instructionBox = document.getElementById('instructionBox');
+      const isVisible = instructionBox.classList.toggle('show');
+
+      if (isVisible) {
+        instructionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentUrlElement = document.getElementById('current-url');
+      if (currentUrlElement) {
+        currentUrlElement.textContent = window.location.href;
+      }
+    });
+
+    const input = document.getElementById('search-input');
+    if (input) {
+      input.addEventListener('input', () => {
+        console.log("Search input changed:", input.value);
+      });
+    }
+  </script>
 </body>
 </html>
