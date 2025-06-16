@@ -34,7 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* --- Header (Main Site - For index.html) --- */
     .header {
       background: var(--bg-header);
       padding: 15px 40px;
@@ -112,7 +111,6 @@
       color: var(--accent-blue);
     }
 
-    /* --- Custom Header for SourceCode Page (scr.html) --- */
     .header-custom {
       background: var(--bg-header);
       padding: 15px 40px;
@@ -151,7 +149,7 @@
       text-decoration: none;
       padding: 8px 12px;
       border-radius: 6px;
-      transition: all var(--transition-speed) ease; /* Keep transition for desktop */
+      transition: all var(--transition-speed) ease;
       display: flex;
       align-items: center;
       gap: 5px;
@@ -161,11 +159,11 @@
     .back-btn:hover {
       color: var(--accent-blue);
       background: rgba(102, 192, 244, 0.1);
-      transform: translateX(-5px); /* This animation */
+      transform: translateX(-5px);
     }
 
     .github-btn {
-      transition: transform var(--transition-speed) ease; /* Keep transition for desktop */
+      transition: transform var(--transition-speed) ease;
       flex-shrink: 0;
     }
 
@@ -177,14 +175,13 @@
     }
 
     .github-btn:hover {
-      transform: scale(1.1); /* This animation */
+      transform: scale(1.1);
     }
 
     .github-btn:hover img {
       filter: invert(70%) sepia(100%) saturate(500%) hue-rotate(180deg);
     }
 
-    /* --- Main Content --- */
     .content {
       padding: 120px 20px 60px;
       text-align: center;
@@ -251,7 +248,6 @@
       text-decoration: none;
     }
 
-    /* --- Instruction Box --- */
     .instruction-box {
       background: var(--bg-card);
       border: 1px solid var(--accent-blue);
@@ -324,7 +320,6 @@
       text-decoration: underline;
     }
 
-    /* --- Footer --- */
     footer {
       padding: 25px 0;
       text-align: center;
@@ -336,7 +331,6 @@
       animation: fadeIn var(--transition-speed) ease-in 0.5s backwards;
     }
 
-    /* --- Animations --- */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -357,7 +351,6 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* --- MOBILE RESPONSIVE ADJUSTMENTS --- */
     @media (max-width: 768px) {
       .header-custom {
         padding: 10px 15px;
@@ -373,25 +366,23 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        /* --- НОВЫЕ ПРАВИЛА ДЛЯ ОТКЛЮЧЕНИЯ АНИМАЦИИ НА МОБИЛЬНЫХ --- */
-        transition: none; /* Отключаем все переходы */
+        transition: none;
       }
-      .back-btn:hover { /* Сбрасываем эффекты наведения */
-        color: var(--text-light); /* Возвращаем стандартный цвет */
-        background: none; /* Убираем фон */
-        transform: none; /* Убираем смещение */
+      .back-btn:hover {
+        color: var(--text-light); 
+        background: none;
+        transform: none;
       }
 
       .github-btn {
         right: 10px;
-        /* --- НОВЫЕ ПРАВИЛА ДЛЯ ОТКЛЮЧЕНИЯ АНИМАЦИИ НА МОБИЛЬНЫХ --- */
-        transition: none; /* Отключаем все переходы */
+        transition: none;
       }
-      .github-btn:hover { /* Сбрасываем эффекты наведения */
-        transform: none; /* Убираем масштабирование */
+      .github-btn:hover {
+        transform: none;
       }
-      .github-btn:hover img { /* Сбрасываем эффекты наведения для картинки */
-        filter: invert(100%); /* Возвращаем стандартный фильтр */
+      .github-btn:hover img {
+        filter: invert(100%);
       }
 
       .back-btn {
@@ -448,7 +439,6 @@
       }
     }
 
-    /* Main site header responsiveness (for index.html) */
     @media (max-width: 600px) {
       .header {
         flex-direction: column;
