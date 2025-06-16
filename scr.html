@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Исходники FreeRealmHub</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif; }
+    body { background:#1b2838; color:#c6d4df; min-height:100vh; display:flex; flex-direction:column; }
+    .header-custom { display:flex; align-items:center; justify-content:space-between; background:#171a21;
+                     padding:10px 20px; border-bottom:2px solid #66c0f4; position:fixed; top:0; width:100%; z-index:1; }
+    .back-btn { background:none; border:none; color:#c6d4df; font-size:16px; cursor:pointer; text-decoration:underline; }
+    .back-btn:hover { color:#66c0f4; }
+    .header-title { font-size:20px; font-weight:bold; color:#fff; }
+    .github-btn img { width:24px; height:24px; filter:invert(100%); }
+    .github-btn:hover img { filter:invert(60%) sepia(100%) saturate(500%) hue-rotate(180deg); }
+    .content { padding:80px 20px; text-align:center; flex:1; }
+    .content h1 { font-size:28px; color:#66c0f4; margin-bottom:20px; }
+    .content p { font-size:16px; line-height:1.6; margin-bottom:30px; }
+    .btn-github {
+      background:#2a475e; color:#fff; padding:14px 24px; border-radius:6px;
+      font-size:16px; text-decoration:none; transition:background 0.3s;
+    }
+    .btn-github:hover { background:#66c0f4; color:#000; }
+    .unpack-link {
+      margin-top:15px;
+      font-size:15px;
+    }
+    .unpack-link a {
+      color:#66c0f4;
+      text-decoration:underline;
+    }
+    .unpack-link a:hover {
+      color:#ffffff;
+    }
+    footer { padding:20px 0; text-align:center; color:#8f98a0; font-size:14px; }
+  </style>
+</head>
+<body>
+  <div class="header-custom">
+    <a href="index.html" class="back-btn">← Назад</a>
+    <div class="header-title">Исходники FreeRealmHub</div>
+    <a href="https://github.com/freerealm/FreeRealmSCR" target="_blank" class="github-btn" title="Наш GitHub">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"/>
+    </a>
+  </div>
+
+  <div class="content">
+    <h1>Открытый код: Полная прозрачность</h1>
+    <p>
+Наши лаунчеры и загрузчики — это чистый Python-код, который мы выкладываем на GitHub. Это значит, что вы можете лично убедиться: в них нет никаких вирусов или скрытых компонентов, а весь исходный код доступен для просмотра.
+    </p>
+    <a href="https://github.com/freerealm/FreeRealmSCR" class="btn-github" target="_blank">Смотреть на GitHub</a>
+
+    <div class="unpack-link">
+    <a href="https://pylingual.io/" target="_blank">Проверить exe</a>.
+    </div>
+  </div>
+
+  <footer>FreeRealmHub 2025</footer>
+</body>
+</html>
