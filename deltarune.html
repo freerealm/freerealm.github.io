@@ -29,6 +29,16 @@
     .progress-container { margin-top: 20px; display: none; }
     .progress-bar { width: 100%; height: 10px; background-color: #f1f1f1; border-radius: 5px; overflow: hidden; }
     .progress-bar span { display: block; height: 100%; background-color: #66c0f4; width: 0; }
+
+    .comment-section { margin-top: 40px; width: 100%; max-width: 600px; }
+    .comment-section h3 { margin-bottom: 10px; }
+    .comment-item { background: #171a21; padding: 10px; border-radius: 5px; margin-bottom: 10px; word-break: break-word; }
+    .comment-item strong { color: #66c0f4; }
+    .comment-form input, .comment-form textarea { background: #1b2838; color: #c6d4df; border: 1px solid #8f98a0; border-radius: 3px; padding: 5px; margin-bottom: 10px; }
+    .comment-form input { width: 200px; }
+    .comment-form textarea { width: 100%; height: 60px; resize: none; }
+    .comment-form button { margin-top: 5px; }
+
     @media (max-width: 600px) {
       .header { flex-direction: column; align-items: flex-start; }
       .nav { justify-content: flex-start; width: 100%; margin-top: 10px; }
@@ -75,6 +85,18 @@ Deltarune (стилизовано DELTARUNE и deltarune) — ролевая и�
         </div>
       </div>
     </div>
+
+    <div class="comment-section">
+      <h3>Отзывы игроков</h3>
+      <form id="comment-form" class="comment-form">
+        <input type="text" id="username" placeholder="Ваш ник" required>
+        <textarea id="comment" placeholder="Ваш комментарий (не более 300 символов)" maxlength="300" required></textarea>
+        <button type="submit" class="download-btn">Отправить</button>
+      </form>
+      <div id="comment-response" style="margin-top:10px; color:#66c0f4;"></div>
+      <div id="comments-list" style="margin-top:20px;"></div>
+    </div>
+
   </div>
 
   <footer>
@@ -83,6 +105,78 @@ Deltarune (стилизовано DELTARUNE и deltarune) — ролевая и�
 
   <script>
     document.getElementById('current-url').textContent = window.location.href;
+
+    const commentsList = document.getElementById('comments-list');
+    const endpoint = 'http://147.185.221.211:7700/deltarune'; // Уникальный эндпоинт для DELTARUNE
+
+    async function loadComments() {
+      try {
+        const response = await fetch(endpoint);
+        if (response.ok) {
+          const comments = await response.json();
+          commentsList.innerHTML = '';
+          comments.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'comment-item';
+            div.innerHTML = `<strong>${c.username}:</strong> ${c.comment}`;
+            commentsList.appendChild(div);
+          });
+        }
+      } catch (err) {
+        console.error('Не удалось загрузить комментарии', err);
+      }
+    }
+
+    document.getElementById('comment-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const comment = document.getElementById('comment').value.trim();
+
+      if (!username || !comment) {
+        alert('Заполните ник и комментарий');
+        return;
+      }
+
+      // Ник: только буквы, цифры и пробелы
+      const usernamePattern = /^[a-zA-Z0-9а-яА-ЯёЁ\s]+$/;
+      if (!usernamePattern.test(username)) {
+        alert('Ник может содержать только буквы и цифры');
+        return;
+      }
+
+      // Комментарий: буквы, цифры, пробелы и стандартные знаки препинания
+      const commentPattern = /^[a-zA-Z0-9а-яА-ЯёЁ\s.,!?(){}\[\]:;"'`-]+$/;
+      if (!commentPattern.test(comment)) {
+        alert('Комментарий содержит недопустимые символы');
+        return;
+      }
+
+      if (comment.length > 300) {
+        alert('Комментарий не должен превышать 300 символов');
+        return;
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, comment })
+        });
+
+        if (response.ok) {
+          document.getElementById('comment-response').textContent = 'Комментарий отправлен!';
+          document.getElementById('comment-form').reset();
+          loadComments();
+        } else {
+          document.getElementById('comment-response').textContent = 'Ошибка при отправке.';
+        }
+      } catch (err) {
+        document.getElementById('comment-response').textContent = 'Сервер недоступен.';
+        console.error(err);
+      }
+    });
+
+    loadComments();
   </script>
 </body>
 </html>
