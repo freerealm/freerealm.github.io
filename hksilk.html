@@ -1,41 +1,132 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FreeRealm</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-    body { background: #1b2838; color: #c6d4df; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; padding-left: 0px; }
-    .header { background: #171a21; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.5); width: 100%; position: fixed; top: 0; left: 0; right: 0; z-index: 10; }
-    .logo-container { display: flex; flex-direction: column; max-width: 100%; }
-    .logo { font-size: 24px; font-weight: bold; color: #fff; text-decoration: none; display: flex; align-items: center; }
-    .logo span { color: #66c0f4; }
-    .current-url { font-size: 12px; color: #8f98a0; margin-top: 2px; word-break: break-word; max-width: 100%; }
-    .nav { display: flex; gap: 20px; justify-content: flex-end; width: 100%; }
-    .nav a { color: #c6d4df; text-decoration: none; font-size: 14px; margin-top: 5px; }
-    .nav a:hover { color: #66c0f4; }
-    .game-page { padding: 20px; width: 100%; max-width: 1100px; margin-top: 120px; }
-    .game-header { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; align-items: flex-start; }
-    .game-logo { width: 300px; border-radius: 8px; }
-    .game-details { text-align: left; max-width: 600px; }
-    .game-name { font-size: 24px; color: #fff; margin-bottom: 10px; }
-    .game-description { color: #c6d4df; margin-bottom: 20px; line-height: 1.5; }
-    .download-btn { background: #a1cd44; color: #1b2838; border: none; border-radius: 3px; padding: 10px 20px; font-size: 16px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: bold; }
-    .download-btn:hover { background: #8cb63b; }
-    .back-btn { color: #66c0f4; text-decoration: none; display: inline-block; margin-top: 20px; }
-    .progress-container { margin-top: 20px; display: none; }
-    .progress-bar { width: 100%; height: 10px; background-color: #f1f1f1; border-radius: 5px; overflow: hidden; }
-    .progress-bar span { display: block; height: 100%; background-color: #66c0f4; width: 0; }
-    @media (max-width: 600px) {
-      .header { flex-direction: column; align-items: flex-start; }
-      .nav { justify-content: flex-start; width: 100%; margin-top: 10px; }
-      .nav a { margin: 5px 10px 0 0; }
-      .game-header { flex-direction: column; }
-      .game-details { text-align: left; }
-    }
-    footer { width: 100%; text-align: center; margin-top: auto; padding: 20px 0; color: #8f98a0; font-size: 14px; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FreeRealm - Hollow Knight Silksong</title>
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;
+  }
+  body {
+    background: #1b2838; color: #c6d4df;
+    min-height: 100vh;
+    padding-top: 60px;
+    display: flex; flex-direction: column; align-items: flex-start;
+  }
+  .header {
+    background: #171a21;
+    padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+  .logo-container {
+    display: flex; flex-direction: column;
+  }
+  .logo {
+    font-size: 24px; font-weight: bold; color: #fff; text-decoration: none;
+  }
+  .logo span {
+    color: #66c0f4;
+  }
+  .current-url {
+    font-size: 12px; color: #8f98a0; margin-top: 2px; word-break: break-word;
+  }
+  .nav {
+    display: flex; gap: 20px; justify-content: flex-end; width: 100%;
+  }
+  .nav a {
+    color: #c6d4df; text-decoration: none; font-size: 14px; margin-top: 5px;
+  }
+  .nav a:hover {
+    color: #66c0f4;
+  }
+  .game-page {
+    padding: 20px;
+    max-width: 1100px;
+    margin-top: 20px;
+    width: 100%;
+  }
+  .game-header {
+    display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;
+  }
+  .game-logo {
+    width: 300px; border-radius: 8px;
+  }
+  .game-details {
+    text-align: left; max-width: 600px; position: relative;
+  }
+  .game-name {
+    font-size: 24px; color: #fff; margin-bottom: 8px;
+  }
+  .game-description {
+    color: #c6d4df; margin-bottom: 12px; line-height: 1.3;
+  }
+  .download-btn {
+    background: #a1cd44; color: #1b2838;
+    border: none; border-radius: 3px;
+    padding: 8px 16px; font-size: 16px;
+    cursor: pointer; font-weight: bold;
+    text-decoration: none; display: inline-block;
+    transition: background 0.3s ease;
+  }
+  .download-btn:hover {
+    background: #8cb63b;
+  }
+  .back-btn {
+    color: #66c0f4;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 16px;
+    display: inline-block;
+  }
+  .progress-container {
+    margin-top: 20px;
+    display: none;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progress-bar span {
+    display: block;
+    height: 100%;
+    background-color: #66c0f4;
+    width: 0;
+    transition: width 0.3s ease;
+  }
+
+  /* Комментарии */
+  .comment-section { margin-top: 40px; width: 100%; max-width: 600px; }
+  .comment-section h3 { margin-bottom: 10px; color: #fff; }
+  .comment-item { background: #171a21; padding: 10px; border-radius: 5px; margin-bottom: 10px; word-break: break-word; }
+  .comment-item strong { color: #66c0f4; }
+  .comment-form input, .comment-form textarea { 
+    background: #1b2838; 
+    color: #c6d4df; 
+    border: 1px solid #8f98a0; 
+    border-radius: 3px; 
+    padding: 8px; 
+    margin-bottom: 10px; 
+    width: 100%;
+  }
+  .comment-form input { width: 200px; }
+  .comment-form textarea { width: 100%; height: 80px; resize: none; }
+  .comment-form button { margin-top: 5px; }
+
+  footer {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+    padding: 20px 0;
+    color: #8f98a0;
+    font-size: 14px;
+  }
+</style>
 </head>
 <body>
   <div class="header">
@@ -51,18 +142,27 @@
 
   <div class="game-page">
     <div class="game-header">
-      <img src="https://raw.githubusercontent.com/freerealm/freerealm.github.io/refs/heads/main/silksong.png"
-           alt="HK:Silksong Logo"
-           class="game-logo"
-           onerror="this.src='https://via.placeholder.com/200x200?text=FNaF';">
+      <img
+        src="https://raw.githubusercontent.com/freerealm/freerealm.github.io/refs/heads/main/silksong.png"
+        alt="Hollow Knight Silksong Logo"
+        class="game-logo"
+        onerror="this.src='https://via.placeholder.com/200x200?text=Silksong';"
+      />
       <div class="game-details">
-        <h1 class="game-name">Hollow Knight Silksong</h1>
+        <h1 class="game-name">Hollow Knight: Silksong</h1>
         <p class="game-description">
-Hollow Knight Silksong
-HK: Silksong является 2D-игрой в жанре метроидвании, действие которой происходит в увядающем королевстве, населённом жуками. 
+          Hollow Knight: Silksong — продолжение знаменитого метроидвании про жуков. 
+          Игроки управляют принцессой Хорнет, которая сражается в новом королевстве.
+        </p>
         <p class="game-description"><strong>Автор: Team Cherry</strong></p>
-        <a href="https://t.me/FreeRealmHub/34"
-           class="download-btn" target="_blank">Скачать HK:S</a><br>
+        
+        <a
+          href="https://t.me/FreeRealmHub/34"
+          class="download-btn"
+          target="_blank"
+          >Скачать Silksong</a
+        >
+        
         <a href="index.html" class="back-btn">← Вернуться к списку игр</a>
 
         <div class="progress-container" id="progress-container">
@@ -71,14 +171,113 @@ HK: Silksong является 2D-игрой в жанре метроидвани
         </div>
       </div>
     </div>
+
+    <!-- БЛОК КОММЕНТАРИЕВ -->
+    <div class="comment-section">
+      <h3>Отзывы игроков</h3>
+      <form id="comment-form" class="comment-form">
+        <input type="text" id="username" placeholder="Ваш ник" required>
+        <textarea id="comment" placeholder="Ваш комментарий (не более 300 символов)" maxlength="300" required></textarea>
+        <button type="submit" class="download-btn">Отправить</button>
+      </form>
+      <div id="comment-response" style="margin-top:10px; color:#66c0f4;"></div>
+      <div id="comments-list" style="margin-top:20px;"></div>
+    </div>
+
   </div>
 
   <footer>
     <div class="footer-text">FreeRealmHub 2025</div>
   </footer>
 
-  <script>
-    document.getElementById('current-url').textContent = window.location.href;
-  </script>
+<script>
+  // Показываем текущий URL
+  document.getElementById('current-url').textContent = window.location.href;
+
+  // Переменные для комментариев
+  const commentsList = document.getElementById('comments-list');
+  // ВАЖНО: используем ТОТ ЖЕ worker, но с другим путем /silksong
+  const endpoint = 'https://freerealm.sigmochka232.workers.dev/silksong';
+
+  // Загрузка комментариев
+  async function loadComments() {
+    try {
+      const response = await fetch(endpoint);
+      if (response.ok) {
+        const comments = await response.json();
+        commentsList.innerHTML = '';
+        if (comments.length === 0) {
+          commentsList.innerHTML = '<div class="comment-item">Пока нет комментариев. Будьте первым!</div>';
+        } else {
+          comments.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'comment-item';
+            div.innerHTML = `<strong>${c.username}:</strong> ${c.comment}`;
+            commentsList.appendChild(div);
+          });
+        }
+      } else {
+        commentsList.innerHTML = '<div class="comment-item">Не удалось загрузить комментарии</div>';
+      }
+    } catch (err) {
+      console.error('Не удалось загрузить комментарии', err);
+      commentsList.innerHTML = '<div class="comment-item">Ошибка загрузки комментариев</div>';
+    }
+  }
+
+  // Отправка комментария
+  document.getElementById('comment-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+
+    if (!username || !comment) {
+      alert('Заполните ник и комментарий');
+      return;
+    }
+
+    // Проверка ника: буквы, цифры, пробелы
+    const usernamePattern = /^[a-zA-Z0-9а-яА-ЯёЁ\s]+$/;
+    if (!usernamePattern.test(username)) {
+      alert('Ник может содержать только буквы и цифры');
+      return;
+    }
+
+    // Проверка комментария: буквы, цифры, пробелы и знаки препинания
+    const commentPattern = /^[a-zA-Z0-9а-яА-ЯёЁ\s.,!?(){}\[\]:;"'`-]+$/;
+    if (!commentPattern.test(comment)) {
+      alert('Комментарий содержит недопустимые символы');
+      return;
+    }
+
+    if (comment.length > 300) {
+      alert('Комментарий не должен превышать 300 символов');
+      return;
+    }
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, comment })
+      });
+
+      if (response.ok) {
+        document.getElementById('comment-response').textContent = 'Комментарий отправлен!';
+        document.getElementById('comment-form').reset();
+        loadComments(); // Перезагружаем комментарии
+      } else {
+        const error = await response.json();
+        document.getElementById('comment-response').textContent = 'Ошибка: ' + (error.error || 'Неизвестная ошибка');
+      }
+    } catch (err) {
+      document.getElementById('comment-response').textContent = 'Сервер недоступен.';
+      console.error(err);
+    }
+  });
+
+  // Загружаем комментарии при открытии страницы
+  loadComments();
+</script>
 </body>
 </html>
